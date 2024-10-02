@@ -53,98 +53,32 @@
  *                   type: string
  */
 
-/**
- * @swagger
- * /login:
- *   post:
- *     summary: User login
- *     tags: [User]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *             required:
- *               - email
- *               - password
- *     responses:
- *       200:
- *         description: Login successful
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                 token:
- *                   type: string
- *       400:
- *         description: All fields are required
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *       401:
- *         description: Invalid credentials
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- */
-
 
 /**
  * @swagger
- * /logout:
- *   put:
- *     summary: User logout
+ * /users:
+ *   get:
+ *     summary: Retrieve all users
  *     tags: [User]
- *     security:
- *       - bearerAuth: []  # This assumes you are using Bearer Token for authentication
  *     responses:
  *       200:
- *         description: Successfully logged out
+ *         description: A list of all users
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "You have been logged out"
- *       400:
- *         description: No token provided
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "No token provided"
- *       401:
- *         description: Invalid token
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Logout failed"
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: The user ID
+ *                   username:
+ *                     type: string
+ *                     description: The user's username
+ *                   email:
+ *                     type: string
+ *                     description: The user's email
  *       500:
  *         description: Internal server error
  *         content:
@@ -154,9 +88,179 @@
  *               properties:
  *                 error:
  *                   type: string
- *                   example: "Logout failed"
+ *                   example: 'Internal server error'
  */
 
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     summary: Retrieve a single user by ID
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: The user data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   description: The user ID
+ *                 username:
+ *                   type: string
+ *                   description: The user's username
+ *                 email:
+ *                   type: string
+ *                   description: The user's email
+ *       404:
+ *         description: User not found or invalid ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Invalid or missing id'
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: 'Internal server error'
+ */
+
+
+
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   put:
+ *     summary: Update an existing user by ID
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - username
+ *               - email
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   description: The user ID
+ *                 username:
+ *                   type: string
+ *                   description: The user's updated username
+ *                 email:
+ *                   type: string
+ *                   description: The user's updated email
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: 'User not found'
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: 'Update failed'
+ */
+
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   delete:
+ *     summary: Delete a user by ID
+ *     tags: [User]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'User deleted'
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: 'User not found'
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: 'Deletion failed'
+ */
 
 
 
@@ -177,7 +281,9 @@ const loginLimiter = rateLimit({
 
 
 router.post("/create-user", controller.createUser);
-router.post("/login", loginLimiter, controller.login);
-router.put("/logout",controller.logout);
+router.get("/users",controller.getAllUser);
+router.get("/users/:id",controller.singleUser);
+router.put("/users/:id", controller.updateUser);
+router.delete("/users/:id",controller.deletUser);
 
 module.exports = router;
