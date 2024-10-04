@@ -55,9 +55,9 @@ Ensure you have the following installed:
 4. **Run the Application**:  
    To start the server, run:
    ```bash
-   npm start
+   node index.js
    ```
-   The API will be running on `http://localhost:5000`.
+   The API will be running on `http://localhost:3000`.
 
 ---
 
