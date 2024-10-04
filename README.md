@@ -1,6 +1,4 @@
 
-
-```markdown
 # User and Product Management API 
 
 This is a RESTful API built using Node.js and Express for managing users and products. It supports creating, reading, updating, and deleting users and products, with features like validation, pagination, filtering, sorting, and rate-limiting for security. 
