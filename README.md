@@ -32,7 +32,7 @@ Ensure you have the following installed:
 ### Setup Instructions
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/your-repo/user-product-api.git
+    git clone https://github.com/Jerry-Khobby/advance-backend-ideation-axis-internship.git
     cd user-product-api
     ```
 
